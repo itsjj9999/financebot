@@ -226,11 +226,32 @@ npm run sync:bloomberg
 
 ## Fully automatic analysis and PDF
 
-The project includes the official Codex CLI, which can use your ChatGPT subscription. Sign in once:
+Analysis and raport writing can run on either the official Codex CLI (your ChatGPT/Codex subscription) or the Claude CLI (your Claude subscription). Sign in to whichever one you plan to use:
 
 ```powershell
 npx codex login
+# or
+claude
 ```
+
+(`claude` opens an interactive login on first run; you only need to complete it once.)
+
+The first time you run `npm run daily`, `npm run raport`, or `npm run weekly`, you'll be asked which one to use:
+
+```text
+Which AI should analyze your sources and write the raports?
+  1) Claude  (Opus, via the Claude CLI)   [default]
+  2) Codex   (via the OpenAI Codex CLI / ChatGPT subscription)
+```
+
+Your choice is saved to `.finance-video/settings.json` and reused automatically after that — you won't be asked again. To switch later, either edit that file (`"analysisEngine": "claude"` or `"codex"`) or override it per run with an environment variable:
+
+```powershell
+ANALYSIS_ENGINE=claude npm run daily
+ANALYSIS_ENGINE=codex npm run daily
+```
+
+`ANALYSIS_ENGINE` always wins over the saved setting, so it's also handy for one-off testing without changing your default.
 
 Complete the browser login. After that, one command performs the complete workflow:
 
@@ -303,7 +324,7 @@ For a specific already-gathered date:
 npm run raport -- --date 2026-06-24
 ```
 
-If Codex login is unavailable but structured evidence already exists, the raport command now falls back to a local evidence-based brief so the daily PDF folder is not left empty. You can choose that mode directly:
+If your chosen engine's login is unavailable but structured evidence already exists, the raport command now falls back to a local evidence-based brief so the daily PDF folder is not left empty. You can choose that mode directly:
 
 ```powershell
 npm run raport -- --date 2026-06-24 --local
@@ -373,8 +394,8 @@ npm run company -- GOOGL
 
 Edit the corresponding file under `05 learning tracker/company-theses/` to write your own thesis, risks, and conditions that would prove you wrong. This preserves your original reasoning instead of allowing daily news to rewrite it.
 
-No OpenAI API key is required. 
-The official Codex CLI uses your signed-in ChatGPT/Codex subscription.
+No OpenAI or Anthropic API key is required.
+The official Codex CLI uses your signed-in ChatGPT/Codex subscription; the Claude CLI uses your signed-in Claude subscription. See [Fully automatic analysis and PDF](#fully-automatic-analysis-and-pdf) for how to pick and switch between them.
 
 ## License
 
