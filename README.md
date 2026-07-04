@@ -110,6 +110,8 @@ npm run sync -- --video-delay 30 --source-delay 45
 
 The selected YouTube, podcast, and Reddit sources are stored in `sources.json`.
 
+YouTube and podcasts:
+
 - Bloomberg Television
 - Reuters
 - Financial Times
@@ -119,6 +121,9 @@ The selected YouTube, podcast, and Reddit sources are stored in `sources.json`.
 - The Intelligence from The Economist
 - The President's Daily Brief
 - The Vergecast
+
+Reddit:
+
 - r/Economics
 - r/StockMarket (`News` only)
 - r/SecurityAnalysis
@@ -268,15 +273,15 @@ npm run daily
 
 Running after Asia has closed, Europe and London have closed, and the U.S. market has been open for a few hours gives the best balance of complete news flow across regions.
 
-Reference market windows (UTC):
+Reference trading hours (times in UTC):
 
-```text
-Tokyo:                 00:00-06:00
-Hong Kong / China:     about 01:30-08:00
-London:                08:00-16:30
-Europe / Frankfurt:    08:00-16:30
-U.S. NYSE / Nasdaq:    14:30-21:00
-```
+| Exchange | Local hours | UTC hours |
+| --- | --- | --- |
+| Tokyo (TSE) | 09:00–15:00 | 00:00–06:00 |
+| Hong Kong / China | 09:30–16:00 | 01:30–08:00 |
+| London (LSE) | 08:00–16:30 | 07:00–15:30 |
+| Europe (Frankfurt) | 08:00–16:30 | 06:00–14:30 |
+| U.S. (NYSE / Nasdaq) | 09:30–16:00 | 14:30–21:00 |
 
 Set `REPORT_TIME_ZONE` to your own IANA timezone so report-day boundaries match your local day. Convert the windows above to your zone to pick a run time that lands shortly after the U.S. open.
 
@@ -368,7 +373,8 @@ npm run company -- GOOGL
 
 Edit the corresponding file under `05 learning tracker/company-theses/` to write your own thesis, risks, and conditions that would prove you wrong. This preserves your original reasoning instead of allowing daily news to rewrite it.
 
-No OpenAI API key is required. The official Codex CLI uses your signed-in ChatGPT/Codex subscription.
+No OpenAI API key is required. 
+The official Codex CLI uses your signed-in ChatGPT/Codex subscription.
 
 ## License
 
