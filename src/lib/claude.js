@@ -99,11 +99,14 @@ ${schemaText}
 INPUT:
 ${transcript}`
 
-  const args = ['-p', fullPrompt, '--output-format', 'json']
+  // Pass the prompt via stdin rather than argv: Windows caps argv around 32KB
+  // (multi-source daily packets routinely exceed that), and argv is visible to
+  // any local process inspecting the command line.
+  const args = ['-p', '--output-format', 'json']
   if (CLAUDE_MODEL) args.push('--model', CLAUDE_MODEL)
   args.push('--disallowedTools', DISABLED_TOOLS)
 
-  const raw = await runClaude(args, { capture: true })
+  const raw = await runClaude(args, { capture: true, input: fullPrompt })
   let envelope
   try {
     envelope = JSON.parse(raw)

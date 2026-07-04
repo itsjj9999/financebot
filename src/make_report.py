@@ -27,6 +27,8 @@ def escape(text: str) -> str:
         text.replace("&", "&amp;")
         .replace("<", "&lt;")
         .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&#39;")
     )
 
 

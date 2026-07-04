@@ -13,13 +13,14 @@ import {
   exists
 } from './lib/project.js'
 import { isMarketRelevant, normalizeRelevanceScore } from './lib/relevance.js'
+import { validateReportDate } from './lib/time.js'
 
 function parseArgs (argv) {
   const options = { force: false, date: null }
   for (let index = 0; index < argv.length; index += 1) {
     const value = argv[index]
     if (value === '--force') options.force = true
-    else if (value === '--date') options.date = argv[++index]
+    else if (value === '--date') options.date = validateReportDate(argv[++index])
     else if (value === '--local') options.local = true
     else if (value === '--help' || value === '-h') options.help = true
     else throw new Error(`Unknown argument: ${value}`)

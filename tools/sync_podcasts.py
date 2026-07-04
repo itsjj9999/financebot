@@ -7,17 +7,29 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 import urllib.request
-import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
+
+try:
+    import defusedxml.ElementTree as ET
+except ImportError:
+    # defusedxml is the recommended parser for untrusted RSS feeds (guards
+    # against entity-expansion attacks). Fall back to stdlib if unavailable
+    # so setups that haven't installed it yet still work.
+    import xml.etree.ElementTree as ET
 
 from faster_whisper import WhisperModel
 
 # Timezone used for report-day boundaries. Configurable via the REPORT_TIME_ZONE
 # environment variable (any IANA zone name, e.g. "UTC", "America/New_York").
 REPORT_TIME_ZONE = os.environ.get("REPORT_TIME_ZONE", "UTC")
+
+# Podcast audio enclosures are capped so a malicious or misconfigured feed
+# cannot exhaust memory/disk by pointing at an oversized file.
+MAX_AUDIO_BYTES = 500 * 1024 * 1024
 
 
 def clean(value):
@@ -41,10 +53,35 @@ def timestamp(seconds):
     return f"{minutes}:{secs:02d}"
 
 
+def require_http_url(url, what="URL"):
+    scheme = urllib.parse.urlparse(url).scheme.lower()
+    if scheme not in ("http", "https"):
+        raise ValueError(f"Refusing to fetch non-http(s) {what}: {url!r}")
+
+
 def fetch_bytes(url, timeout=120):
+    require_http_url(url)
     request = urllib.request.Request(url, headers={"User-Agent": "finance-video-podcast-sync/0.1"})
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return response.read()
+
+
+def fetch_to_file(url, destination, timeout=120, max_bytes=MAX_AUDIO_BYTES):
+    require_http_url(url, what="audio URL")
+    request = urllib.request.Request(url, headers={"User-Agent": "finance-video-podcast-sync/0.1"})
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        total = 0
+        with open(destination, "wb") as handle:
+            while True:
+                chunk = response.read(1024 * 1024)
+                if not chunk:
+                    break
+                total += len(chunk)
+                if total > max_bytes:
+                    handle.close()
+                    destination.unlink(missing_ok=True)
+                    raise ValueError(f"Podcast audio exceeded {max_bytes} bytes; aborting download.")
+                handle.write(chunk)
 
 
 def child_text(node, local_name):
@@ -211,7 +248,7 @@ def transcribe_episode(model, source, episode, raw_root, model_name):
     transcript_path = output_folder / f"{stem}.md"
 
     if not audio_path.exists():
-        audio_path.write_bytes(fetch_bytes(episode["audio"]))
+        fetch_to_file(episode["audio"], audio_path)
 
     segments, _info = model.transcribe(str(audio_path), beam_size=1)
     chunks = compact_segments(segments)
@@ -248,6 +285,9 @@ def main():
     parser.add_argument("--model", default="base.en")
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
+
+    if not re.match(r"^\d{4}-\d{2}-\d{2}$", args.date):
+        raise ValueError("--date must use YYYY-MM-DD.")
 
     root = Path(args.root)
     sources = [item for item in json.loads(Path(args.sources).read_text(encoding="utf-8")) if item.get("type") == "podcast"]

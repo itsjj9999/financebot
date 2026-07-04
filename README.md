@@ -42,7 +42,7 @@ Podcast transcription also needs FFmpeg on your PATH and a project-local Python 
 ```bash
 # FFmpeg: `brew install ffmpeg` (macOS) or `sudo apt install ffmpeg` (Debian/Ubuntu)
 python3.12 -m venv .venv-transcribe
-./.venv-transcribe/bin/python -m pip install faster-whisper
+./.venv-transcribe/bin/python -m pip install faster-whisper defusedxml
 ```
 
 **Windows (PowerShell):**
@@ -50,7 +50,7 @@ python3.12 -m venv .venv-transcribe
 ```powershell
 # FFmpeg: winget install --source winget --id Gyan.FFmpeg.Essentials
 py -3.12 -m venv .venv-transcribe
-.\.venv-transcribe\Scripts\python.exe -m pip install faster-whisper
+.\.venv-transcribe\Scripts\python.exe -m pip install faster-whisper defusedxml
 ```
 
 The first podcast transcription downloads the selected Whisper model. `base.en` is the default fast test model; `small.en` is slower but usually cleaner.

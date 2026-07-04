@@ -10,8 +10,9 @@ import {
 } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import process from 'node:process'
-import { folderNames, paths } from './lib/project.js'
+import { paths } from './lib/project.js'
 import { dateInTimeZone, reportDate, validateReportDate } from './lib/time.js'
+import { downloadTranscript } from './lib/transcript.js'
 
 const require = createRequire(import.meta.url)
 const youtubeDl = require('youtube-dl-exec')
@@ -90,7 +91,7 @@ function sleep (milliseconds) {
   return new Promise(resolvePromise => setTimeout(resolvePromise, milliseconds))
 }
 
-function run (command, args, { show = false } = {}) {
+function run (command, args) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, {
       cwd: root,
@@ -99,14 +100,8 @@ function run (command, args, { show = false } = {}) {
     })
     let stdout = ''
     let stderr = ''
-    child.stdout.on('data', chunk => {
-      stdout += chunk
-      if (show) process.stdout.write(chunk)
-    })
-    child.stderr.on('data', chunk => {
-      stderr += chunk
-      if (show) process.stderr.write(chunk)
-    })
+    child.stdout.on('data', chunk => { stdout += chunk })
+    child.stderr.on('data', chunk => { stderr += chunk })
     child.on('error', reject)
     child.on('close', code => {
       if (code === 0) resolvePromise({ stdout, stderr })
@@ -151,13 +146,15 @@ async function exists (path) {
 
 async function loadState (path) {
   if (!(await exists(path))) return { channels: {} }
-  return JSON.parse(await readFile(path, 'utf8'))
+  try {
+    return JSON.parse(await readFile(path, 'utf8'))
+  } catch {
+    throw new Error(`${path} contains invalid JSON. Fix or remove it, then retry.`)
+  }
 }
 
 function videoUrl (entry) {
-  return entry.webpage_url || entry.url?.startsWith('http')
-    ? entry.webpage_url || entry.url
-    : `https://www.youtube.com/watch?v=${entry.id}`
+  return entry.webpage_url || (entry.url?.startsWith('http') ? entry.url : `https://www.youtube.com/watch?v=${entry.id}`)
 }
 
 async function buildDailyPacket (date, channelSlug, items) {
@@ -248,21 +245,17 @@ async function main () {
     const url = videoUrl(entry)
     console.log(`\nProcessing: ${entry.title || entry.id}`)
     try {
-      const result = await run(process.execPath, [
-        join(root, 'src', 'cli.js'),
+      const { destination } = await downloadTranscript({
         url,
-        '--lang', options.lang,
-        '--out', folderNames.rawText,
-        '--date-folder'
-      ], { show: true })
-      const match = result.stdout.match(/Created:\s+(.+\.md)\s*$/m)
-      if (!match) throw new Error('Transcript was created but its path could not be identified.')
-      const transcriptPath = match[1].trim()
-      created.push({ id: entry.id, title: entry.title, path: transcriptPath, url })
+        lang: options.lang,
+        outFolder: paths.rawText,
+        dateFolder: true
+      })
+      created.push({ id: entry.id, title: entry.title, path: destination, url })
       channelState.processed[entry.id] = {
         title: entry.title,
         url,
-        transcript: transcriptPath,
+        transcript: destination,
         syncedAt: new Date().toISOString()
       }
     } catch (error) {

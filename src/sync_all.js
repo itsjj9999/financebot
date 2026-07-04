@@ -198,22 +198,24 @@ async function main () {
 
   const activeSources = options.reddit ? sources : sources.filter(source => source.type !== 'reddit')
   const packet = await combineDailyPackets(date, activeSources)
+  const runFolder = resolve(paths.dailyBundles, date)
   const created = []
-  for (const result of results.filter(result => result.source !== 'Podcast sources')) {
-    const source = youtubeSources.find(item => item.name === result.source)
-    const matches = [...result.stdout.matchAll(/Created:\s+(.+\.md)\s*$/gm)]
-    for (const match of matches) {
-      const path = match[1].trim()
-      const id = path.match(/-([A-Za-z0-9_-]{11})\.md$/)?.[1] || ''
-      created.push({
-        id,
-        source: result.source,
-        sourceSlug: source?.slug || 'unknown-source',
-        transcript: path
-      })
+  for (const source of youtubeSources) {
+    const summaryPath = join(runFolder, `${source.slug}-sync-summary.json`)
+    try {
+      const summary = JSON.parse(await readFile(summaryPath, 'utf8'))
+      for (const item of summary.created || []) {
+        created.push({
+          id: item.id,
+          source: source.name,
+          sourceSlug: source.slug,
+          transcript: item.path
+        })
+      }
+    } catch {
+      // Source may have failed before writing its summary, or found nothing new.
     }
   }
-  const runFolder = resolve(paths.dailyBundles, date)
   await mkdir(runFolder, { recursive: true })
   const podcastSummaryPath = join(runFolder, 'podcasts-sync-summary.json')
   try {

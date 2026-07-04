@@ -8,13 +8,14 @@ import { updateCompanyLearning, updatePredictionJournal } from './lib/learning.j
 import { latestDailyDate, root, paths, exists } from './lib/project.js'
 import { isMarketRelevant, normalizeRelevanceScore } from './lib/relevance.js'
 import { buildLocalDailyBrief } from './lib/local_brief.js'
+import { validateReportDate } from './lib/time.js'
 import { spawn } from 'node:child_process'
 
 function parseArgs (argv) {
   const options = { date: null, force: false, local: false }
   for (let index = 0; index < argv.length; index += 1) {
     const value = argv[index]
-    if (value === '--date') options.date = argv[++index]
+    if (value === '--date') options.date = validateReportDate(argv[++index])
     else if (value === '--force') options.force = true
     else if (value === '--local') options.local = true
     else if (value === '--help' || value === '-h') options.help = true

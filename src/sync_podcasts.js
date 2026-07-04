@@ -5,13 +5,13 @@ import { access, readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import process from 'node:process'
 import { root } from './lib/project.js'
-import { reportDate } from './lib/time.js'
+import { reportDate, validateReportDate } from './lib/time.js'
 
 function parseArgs (argv) {
   const options = { date: reportDate(), force: false, model: 'base.en' }
   for (let index = 0; index < argv.length; index += 1) {
     const value = argv[index]
-    if (value === '--date') options.date = argv[++index]
+    if (value === '--date') options.date = validateReportDate(argv[++index])
     else if (value === '--force') options.force = true
     else if (value === '--podcast-model') options.model = argv[++index]
     else if (value === '--help' || value === '-h') options.help = true
