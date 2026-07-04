@@ -109,7 +109,6 @@ npm run sync -- --video-delay 30 --source-delay 45
 ```
 
 The selected YouTube, podcast, and Reddit sources are stored in `sources.json`.
-
 - Bloomberg Television
 - Reuters
 - Financial Times
@@ -119,6 +118,8 @@ The selected YouTube, podcast, and Reddit sources are stored in `sources.json`.
 - The Intelligence from The Economist
 - The President's Daily Brief
 - The Vergecast
+
+  reddit:
 - r/Economics
 - r/StockMarket (`News` only)
 - r/SecurityAnalysis
@@ -260,39 +261,13 @@ Outputs:
 
 ## Times to run recommendations
 
-For Kyiv time, the best default time to run the daily preview is:
 
-```powershell
-npm run daily
-```
-
-at:
-
-```text
-19:00 Kyiv time, Monday-Friday
-```
-
-This is the best balance: Asia is closed, Europe and London have just closed, and the U.S. market has been open for about 2.5 hours.
-
-Useful Kyiv-time market windows:
-
-```text
-Tokyo:                 03:00-09:00
-Hong Kong / China:     about 04:30-11:00
-London:                10:00-18:30
-Europe / Frankfurt:    10:00-18:30
-U.S. NYSE / Nasdaq:    16:30-23:00
-```
-
-Recommended routine:
-
-```text
-10:30 Kyiv - optional early scan after Asia closes and while Europe is open
-19:00 Kyiv - best main daily preview
-23:15 Kyiv - optional final U.S. close version
-```
-
-If running only once per day, use 19:00 Kyiv time.
+Financial Zone	Local Trading Hours	UTC Equivalent	Data Cleanliness Peak
+Tokyo (TSE)	09:00 - 15:00	00:00 - 06:00	06:30 UTC
+Hong Kong / China	09:30 - 16:00	01:30 - 08:00	08:30 UTC
+London (LSE)	08:00 - 16:30	07:00 - 15:30	16:00 UTC
+Europe (Frankfurt)	08:00 - 20:00	06:00 - 18:00	18:30 UTC
+U.S. (NYSE / Nasdaq)	09:30 - 16:00	13:50 - 20:00	20:30 UTC
 
 To analyze the latest packet again without fetching videos:
 
