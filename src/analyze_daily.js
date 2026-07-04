@@ -3,7 +3,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import process from 'node:process'
-import { checkCodexLogin, runCodexStructured } from './lib/codex.js'
+import { checkEngineLogin, runStructured, engineName } from './lib/engine.js'
 import { updateCompanyLearning, updatePredictionJournal } from './lib/learning.js'
 import { latestDailyDate, root, paths, exists } from './lib/project.js'
 import { isMarketRelevant, normalizeRelevanceScore } from './lib/relevance.js'
@@ -133,9 +133,9 @@ Priorities:
       brief = buildLocalDailyBrief(date, primaryAnalyses)
     } else {
       try {
-        await checkCodexLogin()
+        await checkEngineLogin()
         console.log(`Synthesizing ${analyses.length} relevant evidence card(s)...`)
-        await runCodexStructured({
+        await runStructured({
           prompt,
           input: JSON.stringify(synthesisInput),
           schema: resolve(root, 'schemas', 'daily-brief.schema.json'),
@@ -143,7 +143,7 @@ Priorities:
         })
         brief = JSON.parse(cleanJsonText(await readFile(jsonOutput, 'utf8')))
       } catch (error) {
-        console.warn(`Full Codex synthesis unavailable: ${error.message}`)
+        console.warn(`Full ${await engineName()} synthesis unavailable: ${error.message}`)
         console.warn('Building a local evidence-based brief instead, so the PDF is still created.')
         brief = buildLocalDailyBrief(date, primaryAnalyses)
       }

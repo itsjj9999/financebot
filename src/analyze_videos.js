@@ -3,7 +3,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import process from 'node:process'
-import { checkCodexLogin, runCodexStructured } from './lib/codex.js'
+import { checkEngineLogin, runStructured } from './lib/engine.js'
 import {
   latestDailyDate,
   parseTranscriptMetadata,
@@ -76,7 +76,7 @@ ${JSON.stringify(metadata)}`
 
   await mkdir(folder, { recursive: true })
   console.log(`Analyzing source: ${item.title}`)
-  await runCodexStructured({
+  await runStructured({
     prompt,
     input: transcript,
     schema: resolve(root, 'schemas', 'video-analysis.schema.json'),
@@ -135,10 +135,10 @@ async function main () {
   }
   if (!videos.length) throw new Error(`No newly synced source items were found for ${date}.`)
 
-  const needsCodex = options.force || await Promise.all(videos.map(video =>
+  const needsEngine = options.force || await Promise.all(videos.map(video =>
     exists(resolve(paths.analysis, 'evidence cards', date, video.sourceSlug, `${video.id}.json`))
   )).then(results => results.some(found => !found))
-  if (needsCodex) await checkCodexLogin()
+  if (needsEngine) await checkEngineLogin()
   const analyses = []
   for (const video of videos) {
     analyses.push(await analyzeVideo(video, date, options.force))

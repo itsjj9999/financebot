@@ -5,7 +5,7 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import process from 'node:process'
 import { reportDate } from './lib/time.js'
-import { checkCodexLogin, runCodexStructured } from './lib/codex.js'
+import { checkEngineLogin, runStructured } from './lib/engine.js'
 import { exists, root, paths } from './lib/project.js'
 
 function parseArgs (argv) {
@@ -111,7 +111,7 @@ async function main () {
   await mkdir(pdfFolder, { recursive: true })
 
   if (options.force || !(await exists(jsonOutput))) {
-    await checkCodexLogin()
+    await checkEngineLogin()
     const input = {
       dates,
       daily_briefs: dailyBriefs,
@@ -132,7 +132,7 @@ Rules:
 - Keep every section concise and plain English.
 - Do not invent market data or events.`
 
-    await runCodexStructured({
+    await runStructured({
       prompt,
       input: JSON.stringify(input),
       schema: resolve(root, 'schemas', 'weekly-review.schema.json'),
