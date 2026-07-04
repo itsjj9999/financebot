@@ -31,7 +31,7 @@ Options:
   --video-delay     Seconds between videos (default: 12)
   --source-name     Display name used in the daily packet
   --source-slug     Stable folder/packet name
-  --date            Kyiv report date (default: today)
+  --date            Report date (default: today)
   --skip-title-keywords  JSON array or comma list of title words to skip
   --help            Show this help
 

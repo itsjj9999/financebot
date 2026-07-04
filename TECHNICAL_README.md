@@ -145,7 +145,7 @@ Reddit sources use subreddit names and factuality filters:
 }
 ```
 
-All report-day boundaries use the `Europe/Kyiv` IANA timezone.
+All report-day boundaries use the timezone named by the `REPORT_TIME_ZONE` environment variable (any IANA zone name, e.g. `UTC`, `America/New_York`, `Europe/London`). It defaults to `UTC`.
 
 ## Outputs
 

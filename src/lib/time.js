@@ -1,4 +1,8 @@
-export const REPORT_TIME_ZONE = 'Europe/Kyiv'
+import process from 'node:process'
+
+// Timezone used for report-day boundaries. Configurable via the REPORT_TIME_ZONE
+// environment variable (any IANA zone name, e.g. "UTC", "America/New_York").
+export const REPORT_TIME_ZONE = process.env.REPORT_TIME_ZONE || 'UTC'
 
 export function dateInTimeZone (value = new Date(), timeZone = REPORT_TIME_ZONE) {
   const date = value instanceof Date ? value : new Date(value)

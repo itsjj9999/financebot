@@ -130,7 +130,7 @@ Broad channels can include simple `skipTitleKeywords` rules. These skip obvious 
 
 The command checks the 10 newest uploads from each YouTube source. On later runs it remembers video IDs and downloads only new captioned videos. Podcast sync checks each RSS feed for episodes whose publish date is the run date.
 
-Daily dates use `Europe/Kyiv`. Reddit collection starts at 00:00 Kyiv time and ends when the command runs. Reddit posts are deduplicated by post ID, normalized outbound URL, and similar headline. Reddit comments are not requested or stored.
+Daily dates use the timezone set by the `REPORT_TIME_ZONE` environment variable (any IANA zone name; defaults to `UTC`). Reddit collection starts at 00:00 in that timezone and ends when the command runs. Reddit posts are deduplicated by post ID, normalized outbound URL, and similar headline. Reddit comments are not requested or stored.
 
 ## Reddit API setup
 
@@ -258,41 +258,27 @@ Outputs:
 05 learning tracker/research-candidates.json
 ```
 
-## Times to run recommendations
+## When to run
 
-For Kyiv time, the best default time to run the daily preview is:
+A good default is to run the daily preview once, late in the U.S. trading afternoon:
 
 ```powershell
 npm run daily
 ```
 
-at:
+Running after Asia has closed, Europe and London have closed, and the U.S. market has been open for a few hours gives the best balance of complete news flow across regions.
+
+Reference market windows (UTC):
 
 ```text
-19:00 Kyiv time, Monday-Friday
+Tokyo:                 00:00-06:00
+Hong Kong / China:     about 01:30-08:00
+London:                08:00-16:30
+Europe / Frankfurt:    08:00-16:30
+U.S. NYSE / Nasdaq:    14:30-21:00
 ```
 
-This is the best balance: Asia is closed, Europe and London have just closed, and the U.S. market has been open for about 2.5 hours.
-
-Useful Kyiv-time market windows:
-
-```text
-Tokyo:                 03:00-09:00
-Hong Kong / China:     about 04:30-11:00
-London:                10:00-18:30
-Europe / Frankfurt:    10:00-18:30
-U.S. NYSE / Nasdaq:    16:30-23:00
-```
-
-Recommended routine:
-
-```text
-10:30 Kyiv - optional early scan after Asia closes and while Europe is open
-19:00 Kyiv - best main daily preview
-23:15 Kyiv - optional final U.S. close version
-```
-
-If running only once per day, use 19:00 Kyiv time.
+Set `REPORT_TIME_ZONE` to your own IANA timezone so report-day boundaries match your local day. Convert the windows above to your zone to pick a run time that lands shortly after the U.S. open.
 
 To analyze the latest packet again without fetching videos:
 

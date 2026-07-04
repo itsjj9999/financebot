@@ -177,7 +177,7 @@ async function main () {
   const date = reportDate()
   console.log(`Checking ${youtubeSources.length} YouTube source(s), up to ${options.limit} newest upload(s) each.`)
   if (options.podcasts) console.log(`Checking ${podcastSources.length} podcast source(s) for episodes published today.`)
-  if (options.reddit) console.log(`Checking ${redditSources.length} Reddit source(s) for Kyiv-date posts without comments.`)
+  if (options.reddit) console.log(`Checking ${redditSources.length} Reddit source(s) for report-date posts without comments.`)
   else console.log('Reddit disabled. Run "python redditswitch.py enable" to enable it.')
 
   const results = []

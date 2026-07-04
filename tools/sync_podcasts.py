@@ -4,6 +4,7 @@ import email.utils
 import hashlib
 import html
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -13,6 +14,10 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from faster_whisper import WhisperModel
+
+# Timezone used for report-day boundaries. Configurable via the REPORT_TIME_ZONE
+# environment variable (any IANA zone name, e.g. "UTC", "America/New_York").
+REPORT_TIME_ZONE = os.environ.get("REPORT_TIME_ZONE", "UTC")
 
 
 def clean(value):
@@ -78,7 +83,7 @@ def pub_date_to_date(value):
         parsed = email.utils.parsedate_to_datetime(value)
         if parsed.tzinfo is None:
             parsed = parsed.replace(tzinfo=timezone.utc)
-        return parsed.astimezone(ZoneInfo("Europe/Kyiv")).date().isoformat()
+        return parsed.astimezone(ZoneInfo(REPORT_TIME_ZONE)).date().isoformat()
     except Exception:
         match = re.search(r"\b(\d{4}-\d{2}-\d{2})\b", value or "")
         return match.group(1) if match else ""
