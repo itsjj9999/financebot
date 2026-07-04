@@ -1,0 +1,134 @@
+{
+  "date": "2026-06-23",
+  "sixty_second_summary": [
+    "Technology shares weakened as higher yields reduced investors' willingness to pay high prices for distant profits.",
+    "Chip demand remained strong, but crowded positions made semiconductor shares vulnerable to sharp corrections.",
+    "More Iranian oil supply eased immediate inflation fears, although negotiations remained fragile."
+  ],
+  "main_stories": [
+    {
+      "headline": "AI spending meets a higher-rate reality",
+      "what_happened": "Large technology platforms weakened while investors questioned debt-funded AI spending.",
+      "why_it_matters": "The AI theme can remain real while individual investments become overpriced.",
+      "confidence": "high"
+    }
+  ],
+  "markets": [
+    {
+      "asset": "US technology",
+      "move": "Lower",
+      "why": "Higher yields and concerns about the return on AI investment pressured valuations.",
+      "cause_type": "mixed",
+      "next_signal": "Inflation data and company evidence that AI spending is producing revenue"
+    }
+  ],
+  "game_theory": [
+    {
+      "story": "AI capital-spending race",
+      "players": [
+        {
+          "name": "AI platforms",
+          "wants": "market leadership",
+          "constraints": "cash burn and shareholder patience",
+          "leverage": "distribution and access to capital",
+          "likely_move": "continue spending while emphasizing new revenue"
+        },
+        {
+          "name": "Chip suppliers",
+          "wants": "high prices and long contracts",
+          "constraints": "capacity cycles",
+          "leverage": "scarce advanced memory and manufacturing capacity",
+          "likely_move": "expand capacity cautiously"
+        }
+      ],
+      "key_tension": "Platforms must spend enough to remain competitive without destroying returns.",
+      "what_changes_the_game": "Clear evidence of durable AI revenue or a sudden increase in supply"
+    }
+  ],
+  "historical_analogues": [
+    {
+      "current_story": "AI investment boom",
+      "episode": "1999-2002 dot-com boom and bust",
+      "similarities": [
+        "A real technology attracted heavy capital spending",
+        "Investors paid high prices for uncertain future profits"
+      ],
+      "differences": [
+        "Today's largest platforms already produce substantial cash flow"
+      ],
+      "clues": [
+        "free-cash-flow conversion",
+        "capacity additions",
+        "revenue earned from AI products"
+      ],
+      "why_it_may_fail": "The strongest current companies have established businesses that many dot-com firms lacked.",
+      "confidence": "medium"
+    }
+  ],
+  "strategy_lab": {
+    "setup": "Wait for confirmation that higher yields are still driving technology weakness",
+    "style": "event_driven",
+    "thesis": "If real yields remain high and earnings expectations stop improving, expensive technology shares may remain under pressure.",
+    "confirmation_required": [
+      "Technology underperforms while real yields rise",
+      "Earnings estimates stop increasing"
+    ],
+    "invalidation": [
+      "AI-related revenue surprises materially higher",
+      "Yields fall without a growth shock"
+    ],
+    "risk_control": "Use a predefined small paper position and a clear maximum loss; do not average down automatically.",
+    "why_not_to_trade": "The evidence may describe a short-lived valuation move rather than a durable trend."
+  },
+  "winners_losers": [
+    {
+      "name": "Advanced memory suppliers",
+      "direction": "winner",
+      "reason": "They receive current spending from the AI infrastructure buildout.",
+      "durability": "uncertain"
+    }
+  ],
+  "long_term_investor": {
+    "what_changed": [
+      "Financing costs became a more visible constraint on AI spending."
+    ],
+    "what_did_not_change": [
+      "Long-term demand for computing capacity remains strong."
+    ],
+    "no_action_case": "A one-day decline does not by itself change a five-year company thesis.",
+    "research_tasks": [
+      "Compare capital spending with growth in AI-related revenue."
+    ],
+    "portfolio_risks": [
+      "Concentration in a small number of technology and memory companies."
+    ]
+  },
+  "consensus_disagreement": {
+    "agreement": [
+      "Higher yields are a headwind for expensive growth shares."
+    ],
+    "disagreement": [
+      "Sources differed on whether AI spending is a durable productivity boom or excessive investment."
+    ],
+    "single_source_claims": [
+      "Exact company cash-burn estimates require confirmation."
+    ]
+  },
+  "daily_lesson": {
+    "concept": "Discount rate",
+    "explanation": "A higher required return makes profits expected far in the future worth less today.",
+    "today_example": "High-growth technology shares weakened as Treasury yields increased.",
+    "quiz": [
+      "Why are distant profits more sensitive to interest rates?",
+      "What evidence would show that an AI investment is paying off?"
+    ]
+  },
+  "predictions_to_watch": [
+    {
+      "claim": "Higher yields will continue to pressure expensive technology shares.",
+      "horizon": "weeks",
+      "confirming_signal": "Technology valuations fall while real yields remain high",
+      "falsifying_signal": "Earnings rise enough to offset the valuation pressure"
+    }
+  ]
+}

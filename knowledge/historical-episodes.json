@@ -1,0 +1,93 @@
+[
+  {
+    "episode": "1973-1974 oil shock and equity bear market",
+    "regime": ["oil supply shock", "high inflation", "weak growth", "falling equities"],
+    "core_pattern": "A geopolitical oil disruption raised inflation while growth weakened, creating pressure on both consumers and company margins.",
+    "clues_to_watch": ["duration of the supply loss", "wage and price pass-through", "consumer demand", "policy tightening"],
+    "main_warning": "A short-lived oil disruption is not equivalent to a prolonged embargo."
+  },
+  {
+    "episode": "1979-1982 inflation and Volcker tightening",
+    "regime": ["persistent inflation", "aggressive rate increases", "recession risk"],
+    "core_pattern": "Central-bank credibility became the dominant market variable as policy stayed restrictive until inflation clearly weakened.",
+    "clues_to_watch": ["services inflation", "inflation expectations", "real rates", "labor-market weakening"],
+    "main_warning": "Today's financial system, debt levels, and central-bank framework are different."
+  },
+  {
+    "episode": "1990 Gulf War oil spike",
+    "regime": ["geopolitical conflict", "rapid oil spike", "growth scare"],
+    "core_pattern": "Oil rose sharply on supply fears, then reversed as the expected disruption proved less persistent than feared.",
+    "clues_to_watch": ["actual shipment volumes", "spare production capacity", "shipping routes", "duration of conflict"],
+    "main_warning": "Market outcomes depend more on physical supply than on alarming headlines."
+  },
+  {
+    "episode": "1997-1998 Asian crisis and LTCM stress",
+    "regime": ["strong dollar", "weak Asian currencies", "leverage", "liquidity stress"],
+    "core_pattern": "Currency weakness and leveraged positions amplified one another, eventually forcing deleveraging across markets.",
+    "clues_to_watch": ["foreign-currency debt", "reserve adequacy", "credit spreads", "forced selling"],
+    "main_warning": "Currency depreciation alone does not imply a systemic crisis."
+  },
+  {
+    "episode": "1999-2002 dot-com boom and bust",
+    "regime": ["new technology boom", "heavy investment", "high valuations", "uncertain profits"],
+    "core_pattern": "A real technological shift attracted too much capital to companies whose future cash flows could not justify their prices.",
+    "clues_to_watch": ["revenue quality", "free cash flow", "capital intensity", "competitive moats", "valuation"],
+    "main_warning": "A bubble in some companies does not mean the underlying technology is unimportant."
+  },
+  {
+    "episode": "2003-2007 China-led commodity and capital-spending boom",
+    "regime": ["infrastructure investment", "capacity expansion", "commodity demand"],
+    "core_pattern": "Persistent end demand supported suppliers until new capacity eventually reduced pricing power.",
+    "clues_to_watch": ["order backlogs", "capacity additions", "inventory", "customer concentration"],
+    "main_warning": "Supplier profits can peak before headline demand does."
+  },
+  {
+    "episode": "2008 global financial crisis",
+    "regime": ["credit contraction", "forced deleveraging", "recession", "bank stress"],
+    "core_pattern": "Falling asset prices exposed leverage and weak balance sheets, turning a market decline into a financing crisis.",
+    "clues_to_watch": ["funding markets", "bank capital", "defaults", "credit availability"],
+    "main_warning": "An equity correction without credit stress is not automatically another 2008."
+  },
+  {
+    "episode": "2013 taper tantrum",
+    "regime": ["rising yields", "stronger dollar", "emerging-market pressure"],
+    "core_pattern": "A change in expected monetary policy rapidly lifted yields and pressured assets dependent on cheap global liquidity.",
+    "clues_to_watch": ["real yields", "dollar strength", "capital flows", "external financing needs"],
+    "main_warning": "The speed of repricing can matter more than the absolute level of rates."
+  },
+  {
+    "episode": "2015-2016 China slowdown and oil collapse",
+    "regime": ["China growth fears", "commodity oversupply", "dollar strength"],
+    "core_pattern": "Weak demand expectations met excess supply, hurting commodity producers while benefiting many consumers.",
+    "clues_to_watch": ["Chinese credit growth", "industrial demand", "producer inventories", "default risk"],
+    "main_warning": "Lower commodity prices can be either a growth warning or a consumer tailwind."
+  },
+  {
+    "episode": "2018 Fed tightening and fourth-quarter technology selloff",
+    "regime": ["rising rates", "high growth-stock valuations", "trade tension"],
+    "core_pattern": "Higher discount rates and policy uncertainty compressed valuations even while many underlying businesses remained healthy.",
+    "clues_to_watch": ["earnings revisions", "real yields", "credit spreads", "Fed guidance"],
+    "main_warning": "Valuation compression is different from permanent business impairment."
+  },
+  {
+    "episode": "2020 pandemic crash and policy reversal",
+    "regime": ["sudden stop", "liquidity panic", "large policy response"],
+    "core_pattern": "A severe economic shock caused indiscriminate selling before extraordinary policy support changed the market direction.",
+    "clues_to_watch": ["market functioning", "fiscal response", "central-bank facilities", "economic reopening"],
+    "main_warning": "This episode depended on an unusually fast and large policy response."
+  },
+  {
+    "episode": "2021-2022 reopening inflation and rate shock",
+    "regime": ["supply constraints", "fiscal demand", "inflation", "rapid tightening"],
+    "core_pattern": "Inflation proved less temporary than expected, forcing rates higher and punishing long-duration growth assets.",
+    "clues_to_watch": ["services inflation", "wages", "supply normalization", "earnings durability"],
+    "main_warning": "Not every increase in inflation becomes a multi-year inflation regime."
+  },
+  {
+    "episode": "2023 regional-bank stress and AI-led market concentration",
+    "regime": ["high rates", "bank duration losses", "narrow technology leadership"],
+    "core_pattern": "Rate pressure hurt weak balance sheets while investors concentrated in a small group of companies expected to benefit from AI.",
+    "clues_to_watch": ["deposit flows", "unrealized losses", "market breadth", "AI revenue conversion"],
+    "main_warning": "Concentration can persist longer than valuation arguments suggest."
+  }
+]

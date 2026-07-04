@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "week_ending",
+    "week_in_five_points",
+    "what_mattered",
+    "what_was_noise",
+    "prediction_scorecard",
+    "regime",
+    "historical_update",
+    "lessons",
+    "next_week"
+  ],
+  "properties": {
+    "week_ending": { "type": "string" },
+    "week_in_five_points": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 3,
+      "maxItems": 5
+    },
+    "what_mattered": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 8
+    },
+    "what_was_noise": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 8
+    },
+    "prediction_scorecard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "status", "evidence", "calibration_lesson"],
+        "properties": {
+          "claim": { "type": "string" },
+          "status": { "type": "string", "enum": ["supported", "challenged", "unresolved", "expired"] },
+          "evidence": { "type": "string" },
+          "calibration_lesson": { "type": "string" }
+        }
+      },
+      "maxItems": 12
+    },
+    "regime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["growth", "inflation", "rates", "liquidity", "risk_appetite", "confidence"],
+      "properties": {
+        "growth": { "type": "string" },
+        "inflation": { "type": "string" },
+        "rates": { "type": "string" },
+        "liquidity": { "type": "string" },
+        "risk_appetite": { "type": "string" },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+      }
+    },
+    "historical_update": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 6
+    },
+    "lessons": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 8
+    },
+    "next_week": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 10
+    }
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "date",
+    "sixty_second_summary",
+    "main_stories",
+    "markets",
+    "game_theory",
+    "historical_analogues",
+    "strategy_lab",
+    "winners_losers",
+    "long_term_investor",
+    "consensus_disagreement",
+    "daily_lesson",
+    "predictions_to_watch"
+  ],
+  "properties": {
+    "date": { "type": "string" },
+    "sixty_second_summary": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 3,
+      "maxItems": 5
+    },
+    "main_stories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["headline", "what_happened", "why_it_matters", "confidence"],
+        "properties": {
+          "headline": { "type": "string" },
+          "what_happened": { "type": "string" },
+          "why_it_matters": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+        }
+      },
+      "maxItems": 5
+    },
+    "markets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["asset", "move", "why", "cause_type", "next_signal"],
+        "properties": {
+          "asset": { "type": "string" },
+          "move": { "type": "string" },
+          "why": { "type": "string" },
+          "cause_type": { "type": "string", "enum": ["reported", "inferred", "speculative", "mixed"] },
+          "next_signal": { "type": "string" }
+        }
+      },
+      "maxItems": 10
+    },
+    "game_theory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["story", "players", "key_tension", "what_changes_the_game"],
+        "properties": {
+          "story": { "type": "string" },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "wants", "constraints", "leverage", "likely_move"],
+              "properties": {
+                "name": { "type": "string" },
+                "wants": { "type": "string" },
+                "constraints": { "type": "string" },
+                "leverage": { "type": "string" },
+                "likely_move": { "type": "string" }
+              }
+            },
+            "minItems": 2,
+            "maxItems": 5
+          },
+          "key_tension": { "type": "string" },
+          "what_changes_the_game": { "type": "string" }
+        }
+      },
+      "maxItems": 3
+    },
+    "historical_analogues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["current_story", "episode", "similarities", "differences", "clues", "why_it_may_fail", "confidence"],
+        "properties": {
+          "current_story": { "type": "string" },
+          "episode": { "type": "string" },
+          "similarities": {
+            "type": "array",
+            "items": { "type": "string" },
+            "maxItems": 4
+          },
+          "differences": {
+            "type": "array",
+            "items": { "type": "string" },
+            "maxItems": 4
+          },
+          "clues": {
+            "type": "array",
+            "items": { "type": "string" },
+            "maxItems": 5
+          },
+          "why_it_may_fail": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+        }
+      },
+      "maxItems": 3
+    },
+    "strategy_lab": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup",
+        "style",
+        "thesis",
+        "confirmation_required",
+        "invalidation",
+        "risk_control",
+        "why_not_to_trade"
+      ],
+      "properties": {
+        "setup": { "type": "string" },
+        "style": {
+          "type": "string",
+          "enum": ["trend", "mean_reversion", "event_driven", "relative_value", "avoid"]
+        },
+        "thesis": { "type": "string" },
+        "confirmation_required": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 5
+        },
+        "invalidation": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 5
+        },
+        "risk_control": { "type": "string" },
+        "why_not_to_trade": { "type": "string" }
+      }
+    },
+    "winners_losers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "direction", "reason", "durability"],
+        "properties": {
+          "name": { "type": "string" },
+          "direction": { "type": "string", "enum": ["winner", "loser", "mixed", "watch"] },
+          "reason": { "type": "string" },
+          "durability": { "type": "string", "enum": ["temporary", "uncertain", "potentially_durable"] }
+        }
+      },
+      "maxItems": 10
+    },
+    "long_term_investor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["what_changed", "what_did_not_change", "no_action_case", "research_tasks", "portfolio_risks"],
+      "properties": {
+        "what_changed": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 6
+        },
+        "what_did_not_change": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 6
+        },
+        "no_action_case": { "type": "string" },
+        "research_tasks": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 6
+        },
+        "portfolio_risks": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 6
+        }
+      }
+    },
+    "consensus_disagreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agreement", "disagreement", "single_source_claims"],
+      "properties": {
+        "agreement": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 6
+        },
+        "disagreement": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 6
+        },
+        "single_source_claims": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 6
+        }
+      }
+    },
+    "daily_lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["concept", "explanation", "today_example", "quiz"],
+      "properties": {
+        "concept": { "type": "string" },
+        "explanation": { "type": "string" },
+        "today_example": { "type": "string" },
+        "quiz": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2,
+          "maxItems": 3
+        }
+      }
+    },
+    "predictions_to_watch": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "horizon", "confirming_signal", "falsifying_signal"],
+        "properties": {
+          "claim": { "type": "string" },
+          "horizon": { "type": "string" },
+          "confirming_signal": { "type": "string" },
+          "falsifying_signal": { "type": "string" }
+        }
+      },
+      "maxItems": 8
+    }
+  }
+}

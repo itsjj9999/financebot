@@ -1,0 +1,39 @@
+{
+  "week_ending": "2026-06-23",
+  "week_in_five_points": [
+    "Higher yields challenged expensive technology shares.",
+    "AI infrastructure demand remained strong.",
+    "Oil risk eased but did not disappear."
+  ],
+  "what_mattered": [
+    "The rate outlook changed valuation assumptions across growth assets."
+  ],
+  "what_was_noise": [
+    "Several single-day price moves lacked evidence of lasting business damage."
+  ],
+  "prediction_scorecard": [
+    {
+      "claim": "Higher yields will continue to pressure expensive technology shares.",
+      "status": "unresolved",
+      "evidence": "The relationship appeared during the week, but the horizon has not finished.",
+      "calibration_lesson": "A plausible mechanism is not the same as a completed forecast."
+    }
+  ],
+  "regime": {
+    "growth": "Still positive but uneven",
+    "inflation": "Sticky enough to keep policy restrictive",
+    "rates": "High and sensitive to inflation news",
+    "liquidity": "Available, but more expensive",
+    "risk_appetite": "Strong in AI suppliers but fragile",
+    "confidence": "medium"
+  },
+  "historical_update": [
+    "The 2018 comparison became more useful as higher yields compressed valuations without clear credit stress."
+  ],
+  "lessons": [
+    "Separate valuation damage from permanent business damage."
+  ],
+  "next_week": [
+    "Watch inflation data, AI revenue evidence, and credit spreads."
+  ]
+}

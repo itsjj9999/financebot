@@ -1,0 +1,36 @@
+{
+  "name": "finance-video",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Private CLI market-learning system with video evidence, daily briefs, game theory, predictions, and PDF raports.",
+  "type": "module",
+  "bin": {
+    "finance-video": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node ./src/cli.js",
+    "sync": "node ./src/sync_all.js",
+    "sync:podcasts": "node ./src/sync_podcasts.js",
+    "sync:reddit": "node ./src/sync_reddit.js",
+    "sync:bloomberg": "node ./src/sync_channel.js",
+    "analyze": "node ./src/analyze.js",
+    "raport": "node ./src/report_existing.js",
+    "analyze:only": "node ./src/report_existing.js",
+    "daily": "node ./src/daily.js",
+    "weekly": "node ./src/weekly_review.js",
+    "watchlist": "node ./src/watchlist.js",
+    "company": "node ./src/company_report.js",
+    "check": "node --check ./src/cli.js && node --check ./src/sync_channel.js && node --check ./src/sync_podcasts.js && node --check ./src/sync_reddit.js && node --check ./src/sync_all.js && node --check ./src/lib/codex.js && node --check ./src/lib/project.js && node --check ./src/lib/settings.js && node --check ./src/lib/time.js && node --check ./src/lib/reddit.js && node --check ./src/lib/learning.js && node --check ./src/lib/relevance.js && node --check ./src/lib/local_brief.js && node --check ./src/analyze_videos.js && node --check ./src/analyze_daily.js && node --check ./src/analyze.js && node --check ./src/report_existing.js && node --check ./src/render_daily.js && node --check ./src/weekly_review.js && node --check ./src/render_weekly.js && node --check ./src/watchlist.js && node --check ./src/company_report.js && node --check ./src/make_report.js && node --check ./src/daily.js",
+    "test": "node --test ./test/*.test.js"
+  },
+  "dependencies": {
+    "pdfkit": "^0.19.1",
+    "youtube-dl-exec": "^3.1.8"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@openai/codex": "^0.142.0"
+  }
+}

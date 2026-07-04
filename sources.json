@@ -1,0 +1,115 @@
+[
+  {
+    "type": "youtube",
+    "name": "Bloomberg Television",
+    "slug": "bloomberg-television",
+    "url": "https://www.youtube.com/@markets/videos"
+  },
+  {
+    "type": "youtube",
+    "name": "Reuters",
+    "slug": "reuters",
+    "url": "https://www.youtube.com/@Reuters/videos",
+    "skipTitleKeywords": [
+      "world cup",
+      "football",
+      "soccer",
+      "fans",
+      "pets",
+      "sumo"
+    ]
+  },
+  {
+    "type": "youtube",
+    "name": "Financial Times",
+    "slug": "financial-times",
+    "url": "https://www.youtube.com/@FinancialTimes/videos"
+  },
+  {
+    "type": "youtube",
+    "name": "The Economist",
+    "slug": "the-economist",
+    "url": "https://www.youtube.com/@TheEconomist/videos"
+  },
+  {
+    "type": "podcast",
+    "name": "Brussels Playbook Podcast",
+    "slug": "brussels-playbook-podcast",
+    "url": "https://feeds.megaphone.fm/ASD6061651607"
+  },
+  {
+    "type": "podcast",
+    "name": "FT News Briefing",
+    "slug": "ft-news-briefing",
+    "url": "https://feeds.acast.com/public/shows/73fe3ede-5c5c-4850-96a8-30db8dbae8bf"
+  },
+  {
+    "type": "podcast",
+    "name": "The Intelligence from The Economist",
+    "slug": "the-intelligence-from-the-economist",
+    "url": "https://access.acast.com/rss/d556eb54-6160-4c85-95f4-47d9f5216c49"
+  },
+  {
+    "type": "podcast",
+    "name": "The President's Daily Brief",
+    "slug": "the-presidents-daily-brief",
+    "url": "https://feeds.megaphone.fm/THFD6217271651"
+  },
+  {
+    "type": "podcast",
+    "name": "The Vergecast",
+    "slug": "the-vergecast",
+    "url": "https://feeds.megaphone.fm/vergecast"
+  },
+  {
+    "type": "reddit",
+    "name": "Reddit Economics",
+    "slug": "reddit-economics",
+    "subreddit": "Economics",
+    "externalOnly": true,
+    "allowedFlairs": ["News", "Research Summary", "Statistics"],
+    "skipTitleKeywords": ["weekly thread", "career", "homework"]
+  },
+  {
+    "type": "reddit",
+    "name": "Reddit Stock Market",
+    "slug": "reddit-stockmarket",
+    "subreddit": "StockMarket",
+    "externalOnly": true,
+    "allowedFlairs": ["News"],
+    "skipTitleKeywords": ["daily discussion", "advice thread", "megathread"]
+  },
+  {
+    "type": "reddit",
+    "name": "Reddit Security Analysis",
+    "slug": "reddit-security-analysis",
+    "subreddit": "SecurityAnalysis",
+    "externalOnly": true,
+    "skipTitleKeywords": ["questions thread", "letters & reports"]
+  },
+  {
+    "type": "reddit",
+    "name": "Reddit Geopolitics",
+    "slug": "reddit-geopolitics",
+    "subreddit": "geopolitics",
+    "externalOnly": true,
+    "allowedFlairs": ["News", "Analysis", "Paywall"],
+    "skipTitleKeywords": ["opinion", "question", "discussion"]
+  },
+  {
+    "type": "reddit",
+    "name": "Reddit Credible Defense",
+    "slug": "reddit-credible-defense",
+    "subreddit": "CredibleDefense",
+    "externalOnly": true,
+    "skipTitleKeywords": ["megathread", "active conflicts", "weekly thread"]
+  },
+  {
+    "type": "reddit",
+    "name": "Reddit Energy",
+    "slug": "reddit-energy",
+    "subreddit": "energy",
+    "externalOnly": true,
+    "skipTitleKeywords": ["job", "career", "question", "survey", "feedback"]
+  }
+]
