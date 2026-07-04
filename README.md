@@ -131,7 +131,6 @@ Broad channels can include simple `skipTitleKeywords` rules. These skip obvious 
 
 The command checks the 10 newest uploads from each YouTube source. On later runs it remembers video IDs and downloads only new captioned videos. Podcast sync checks each RSS feed for episodes whose publish date is the run date.
 
-Daily dates use `Europe/Kyiv`. Reddit collection starts at 00:00 Kyiv time and ends when the command runs. Reddit posts are deduplicated by post ID, normalized outbound URL, and similar headline. Reddit comments are not requested or stored.
 
 ## Reddit API setup
 
@@ -260,14 +259,32 @@ Outputs:
 ```
 
 ## Times to run recommendations
+Financial Zone	Local Trading Hours	UTC Equivalent:
 
+Tokyo (TSE)	
+09:00 - 15:00	
+00:00 - 06:00	
+06:30 UTC
 
-Financial Zone	Local Trading Hours	UTC Equivalent	Data Cleanliness Peak
-Tokyo (TSE)	09:00 - 15:00	00:00 - 06:00	06:30 UTC
-Hong Kong / China	09:30 - 16:00	01:30 - 08:00	08:30 UTC
-London (LSE)	08:00 - 16:30	07:00 - 15:30	16:00 UTC
-Europe (Frankfurt)	08:00 - 20:00	06:00 - 18:00	18:30 UTC
-U.S. (NYSE / Nasdaq)	09:30 - 16:00	13:50 - 20:00	20:30 UTC
+Hong Kong / China	
+09:30 - 16:00	
+01:30 - 08:00	
+08:30 UTC
+
+London (LSE)	
+08:00 - 16:30	
+07:00 - 15:30	
+16:00 UTC
+
+Europe (Frankfurt)	
+08:00 - 20:00	
+06:00 - 18:00	
+18:30 UTC
+
+U.S. (NYSE / Nasdaq)	
+09:30 - 16:00	
+13:50 - 20:00	
+20:30 UTC
 
 To analyze the latest packet again without fetching videos:
 
@@ -357,7 +374,8 @@ npm run company -- GOOGL
 
 Edit the corresponding file under `05 learning tracker/company-theses/` to write your own thesis, risks, and conditions that would prove you wrong. This preserves your original reasoning instead of allowing daily news to rewrite it.
 
-No OpenAI API key is required. The official Codex CLI uses your signed-in ChatGPT/Codex subscription.
+No OpenAI API key is required. 
+The official Codex CLI uses your signed-in ChatGPT/Codex subscription.
 
 ## License
 
