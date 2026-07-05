@@ -13,6 +13,7 @@ function parseArgs (argv) {
   for (let index = 0; index < argv.length; index += 1) {
     const value = argv[index]
     if (value === '--ending') options.ending = argv[++index]
+    else if (value === '--since') options.since = argv[++index]
     else if (value === '--force') options.force = true
     else if (value === '--help' || value === '-h') options.help = true
     else throw new Error(`Unknown argument: ${value}`)
@@ -27,6 +28,19 @@ function lastSevenDates (ending) {
     date.setUTCDate(end.getUTCDate() - (6 - offset))
     return date.toISOString().slice(0, 10)
   })
+}
+
+function dateRange (since, ending) {
+  const start = new Date(`${since}T12:00:00Z`)
+  const end = new Date(`${ending}T12:00:00Z`)
+  if (Number.isNaN(start.getTime())) throw new Error(`Invalid --since date: ${since}`)
+  if (Number.isNaN(end.getTime())) throw new Error(`Invalid --ending date: ${ending}`)
+  if (start > end) throw new Error('--since must not be after --ending.')
+  const dates = []
+  for (const cursor = new Date(start); cursor <= end; cursor.setUTCDate(cursor.getUTCDate() + 1)) {
+    dates.push(cursor.toISOString().slice(0, 10))
+  }
+  return dates
 }
 
 function runScript (script, args) {
@@ -87,10 +101,14 @@ async function updatePredictionReviews (review, weekEnding) {
 async function main () {
   const options = parseArgs(process.argv.slice(2))
   if (options.help) {
-    console.log('Usage: npm run weekly -- [--ending YYYY-MM-DD] [--force]')
+    console.log('Usage: npm run weekly -- [--ending YYYY-MM-DD] [--since YYYY-MM-DD] [--force]')
+    console.log('')
+    console.log('Without --since, reviews the trailing 7 days ending on --ending.')
+    console.log('With --since, reviews every date from --since through --ending, inclusive,')
+    console.log('regardless of length, skipping any dates with no daily brief.')
     return
   }
-  const dates = lastSevenDates(options.ending)
+  const dates = options.since ? dateRange(options.since, options.ending) : lastSevenDates(options.ending)
   const { dailyBriefs, evidence } = await loadWeek(dates)
   if (!dailyBriefs.length) throw new Error('No daily briefs were found in the selected seven-day period.')
 
@@ -118,7 +136,7 @@ async function main () {
       selected_video_evidence: evidence.filter(item => item.relevance.include && item.relevance.score >= 60),
       open_predictions: relevantPredictions
     }
-    const prompt = `Create a weekly investing-learning review from the supplied daily briefs, evidence cards, and prediction journal.
+    const prompt = `Create an investing-learning review covering ${dates[0]} through ${dates[dates.length - 1]} from the supplied daily briefs, evidence cards, and prediction journal. The supplied "dates" array is the full covered period; some dates may have no matching daily brief because nothing was gathered or analyzed that day, so the period may not be a clean single week or fully continuous.
 
 Return only JSON matching the supplied schema.
 
@@ -128,7 +146,7 @@ Rules:
 - Use exact prediction claim text from open_predictions in the scorecard.
 - Mark predictions unresolved unless supplied evidence clearly supports or challenges them.
 - Describe the market regime cautiously; this is a learning summary, not a trading signal.
-- Explain what changed in the historical comparisons during the week.
+- Explain what changed in the historical comparisons over the covered period.
 - Keep every section concise and plain English.
 - Do not invent market data or events.`
 

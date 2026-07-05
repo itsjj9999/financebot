@@ -371,6 +371,14 @@ This creates:
 
 The weekly review asks what actually mattered, what disappeared as noise, how forecasts are holding up, what market regime appears to be present, and what to watch next.
 
+By default this reviews the trailing 7 days ending today (or `--ending YYYY-MM-DD`). To combine every daily brief across a longer or irregular span — including one with gaps where nothing was gathered or analyzed — add `--since`:
+
+```powershell
+npm run weekly -- --since 2026-06-23 --ending 2026-07-05
+```
+
+Dates with no daily brief are simply skipped; the review still notes what happened during the covered period.
+
 ## Company thesis tracker
 
 Add a company:
