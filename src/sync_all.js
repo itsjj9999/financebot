@@ -11,7 +11,7 @@ import { reportDate } from './lib/time.js'
 const root = resolve(import.meta.dirname, '..')
 
 function parseArgs (argv) {
-  const options = { limit: 10, lang: 'en', videoDelay: 12, sourceDelay: 20, podcastModel: 'base.en', podcasts: true, skipReddit: false }
+  const options = { limit: 6, lang: 'en', videoDelay: 15, sourceDelay: 30, podcastModel: 'base.en', podcasts: true, skipReddit: false }
   for (let index = 0; index < argv.length; index += 1) {
     const value = argv[index]
     if (value === '--limit') options.limit = Number(argv[++index])
@@ -37,6 +37,13 @@ function parseArgs (argv) {
 
 function sleep (milliseconds) {
   return new Promise(resolvePromise => setTimeout(resolvePromise, milliseconds))
+}
+
+// Randomize the pause between sources by +/-25% so back-to-back channels do
+// not hit YouTube on a fixed, easily-throttled interval.
+function jitteredSleep (milliseconds) {
+  const factor = 0.75 + Math.random() * 0.5
+  return sleep(Math.round(milliseconds * factor))
 }
 
 function runSource (source, options, date) {
@@ -164,7 +171,7 @@ async function combineDailyPackets (date, sources) {
 async function main () {
   const options = parseArgs(process.argv.slice(2))
   if (options.help) {
-    console.log('Usage: npm run sync -- [--limit 10] [--lang en] [--video-delay 12] [--source-delay 20] [--podcast-model base.en] [--skip-podcasts] [--skip-reddit]')
+    console.log('Usage: npm run sync -- [--limit 6] [--lang en] [--video-delay 15] [--source-delay 30] [--podcast-model base.en] [--skip-podcasts] [--skip-reddit]')
     return
   }
 
@@ -185,8 +192,8 @@ async function main () {
     const source = youtubeSources[index]
     results.push(await runSource(source, options, date))
     if (index < youtubeSources.length - 1 && options.sourceDelay > 0) {
-      console.log(`\nWaiting ${options.sourceDelay} seconds before the next source...`)
-      await sleep(options.sourceDelay * 1000)
+      console.log(`\nWaiting ~${options.sourceDelay} seconds before the next source...`)
+      await jitteredSleep(options.sourceDelay * 1000)
     }
   }
   let podcastResult = null

@@ -61,9 +61,10 @@ Rules:
 - Do not invent tickers, prices, percentages, speakers, or events.
 - Timestamp fields must use a timestamp shown in the transcript, such as "12:34".
 - Distinguish reported facts, interpretation, and forecasts.
-- Score relevance to markets, economics, companies, investing, or strategically important geopolitics.
+- Score relevance to markets, economics, companies, investing, strategically important geopolitics, robotics and automation, cyberwarfare, or major cyber incidents (breaches, hacks, ransomware, outages).
 - Relevance score must be on a 0-100 scale, where 0 means no market value and 100 means extremely useful for a market/investing daily brief.
-- Set relevance.include=false when the video offers little useful market or investing information.
+- Treat a concrete robotics/automation development, a cyberwarfare or state-cyber operation, or a named cyber incident as relevant: set relevance.include=true and score it at least 60, even when there is no direct market or ticker angle.
+- Otherwise set relevance.include=false when the video offers little useful market, investing, robotics, or cyber information.
 - Actor analysis is game theory: identify what each player wants, constraints, leverage, and likely next move.
 - "Likely next move" must be cautious and confidence-rated.
 - The long-term investor default should often be observe or no_action.

@@ -32,6 +32,18 @@
     "url": "https://www.youtube.com/@TheEconomist/videos"
   },
   {
+    "type": "youtube",
+    "name": "The Robot Report",
+    "slug": "the-robot-report",
+    "url": "https://www.youtube.com/@therobotreport/videos"
+  },
+  {
+    "type": "youtube",
+    "name": "IEEE Spectrum",
+    "slug": "ieee-spectrum",
+    "url": "https://www.youtube.com/@IEEESpectrum/videos"
+  },
+  {
     "type": "podcast",
     "name": "Brussels Playbook Podcast",
     "slug": "brussels-playbook-podcast",
@@ -60,6 +72,18 @@
     "name": "The Vergecast",
     "slug": "the-vergecast",
     "url": "https://feeds.megaphone.fm/vergecast"
+  },
+  {
+    "type": "podcast",
+    "name": "Risky Business",
+    "slug": "risky-business",
+    "url": "https://risky.biz/feeds/risky-business/"
+  },
+  {
+    "type": "podcast",
+    "name": "SANS ISC StormCast",
+    "slug": "sans-isc-stormcast",
+    "url": "https://isc.sans.edu/dailypodcast.xml"
   },
   {
     "type": "reddit",

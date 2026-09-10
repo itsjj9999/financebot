@@ -12,7 +12,7 @@ import { join, resolve } from 'node:path'
 import process from 'node:process'
 import { paths } from './lib/project.js'
 import { dateInTimeZone, reportDate, validateReportDate } from './lib/time.js'
-import { downloadTranscript } from './lib/transcript.js'
+import { downloadTranscript, ytdlpAuthFlags } from './lib/transcript.js'
 
 const require = createRequire(import.meta.url)
 const youtubeDl = require('youtube-dl-exec')
@@ -91,6 +91,13 @@ function sleep (milliseconds) {
   return new Promise(resolvePromise => setTimeout(resolvePromise, milliseconds))
 }
 
+// Randomize a base wait by +/-25% so the request cadence is not a fixed,
+// bot-like interval. YouTube throttles predictable bursts more aggressively.
+function jitteredSleep (milliseconds) {
+  const factor = 0.75 + Math.random() * 0.5
+  return sleep(Math.round(milliseconds * factor))
+}
+
 function run (command, args) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, {
@@ -111,7 +118,7 @@ function run (command, args) {
 }
 
 async function runWithBackoff (command, args, options = {}) {
-  const waits = [15000, 30000, 60000]
+  const waits = [15000, 30000, 60000, 120000, 300000]
   for (let attempt = 0; attempt <= waits.length; attempt += 1) {
     try {
       return await run(command, args, options)
@@ -198,6 +205,7 @@ async function main () {
 
   console.log(`Checking the newest ${options.limit} ${options.sourceName || 'channel'} uploads...`)
   const listing = await runWithBackoff(binary, [
+    ...ytdlpAuthFlags(),
     '--flat-playlist',
     '--dump-json',
     '--playlist-end', String(options.limit),
@@ -263,8 +271,8 @@ async function main () {
       console.error(`Skipped: ${error.message.split(/\r?\n/)[0]}`)
     }
     if (index < ordered.length - 1 && options.videoDelay > 0) {
-      console.log(`Waiting ${options.videoDelay} seconds before the next video...`)
-      await sleep(options.videoDelay * 1000)
+      console.log(`Waiting ~${options.videoDelay} seconds before the next video...`)
+      await jitteredSleep(options.videoDelay * 1000)
     }
   }
 

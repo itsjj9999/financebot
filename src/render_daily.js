@@ -51,7 +51,8 @@ function pushBullets (sections, items, options = {}) {
 }
 
 function storyLine (story) {
-  return `- **${shortenTitle(story.headline, 10)}:** ${shorten(story.what_happened, 18)} **So what:** ${shorten(story.why_it_matters, 14)}`
+  const headline = shortenTitle(story.headline, 10).replace(/[.:;,]+$/, '')
+  return `- **${headline}:** ${shorten(story.what_happened, 18)} **So what:** ${shorten(story.why_it_matters, 14)}`
 }
 
 function compactDirection (value) {
@@ -62,7 +63,7 @@ function render (brief) {
   const sections = [
     `# Daily Market Brief - ${brief.date}`,
     '',
-    '> KISS version: plain English, less Bloomberg noise, only what is worth checking.',
+    '> Compressed brief: plain English, facts only, only what is worth checking.',
     '',
     '## Bottom line',
     '',
@@ -76,9 +77,24 @@ function render (brief) {
   }
 
   sections.push('', '## What moved?', '')
-  for (const market of array(brief.markets).slice(0, 5)) {
+  for (const market of array(brief.markets).slice(0, 4)) {
     sections.push(`- **${shortenTitle(market.asset, 7)}:** ${withPeriod(shorten(market.move, 8))} Why: ${withPeriod(shorten(market.why, 12))}`)
   }
+
+  sections.push('', '## Robotics & cyber', '')
+  const rc = brief.robotics_cyber || {}
+  const rcRow = (label, items) => {
+    const list = array(items).filter(Boolean).slice(0, 3)
+    if (!list.length) {
+      sections.push(`- **${label}:** No news in today's sources.`)
+      return
+    }
+    sections.push(`- **${label}:**`)
+    for (const item of list) sections.push(`  - ${shorten(item, 16)}`)
+  }
+  rcRow('Robotics', rc.robotics)
+  rcRow('Cyberwarfare', rc.cyberwarfare)
+  rcRow('Cyber incidents', rc.cyber_incidents)
 
   sections.push('', '## Does this matter for a long-term investor?', '')
   sections.push(`- **Default:** ${shorten(brief.long_term_investor?.no_action_case, 18)}`)
@@ -90,7 +106,7 @@ function render (brief) {
   pushBullets(sections, brief.long_term_investor?.research_tasks, { maxItems: 3, maxWords: 12 })
 
   sections.push('', '## Stocks / companies mentioned', '')
-  for (const item of array(brief.winners_losers).slice(0, 5)) {
+  for (const item of array(brief.winners_losers).slice(0, 4)) {
     sections.push(`- **${shortenTitle(item.name, 7)} - ${compactDirection(item.direction)}:** ${withPeriod(shorten(item.reason, 12))}`)
   }
 
@@ -132,7 +148,7 @@ function render (brief) {
   sections.push(`- **Today:** ${shorten(brief.daily_lesson?.today_example, 16)}`)
 
   sections.push('', '## Watch tomorrow / later', '')
-  for (const prediction of array(brief.predictions_to_watch).slice(0, 4)) {
+  for (const prediction of array(brief.predictions_to_watch).slice(0, 3)) {
     sections.push(`- **${withPeriod(shorten(prediction.claim, 12))}** True if: ${withPeriod(shorten(prediction.confirming_signal, 8))} Wrong if: ${withPeriod(shorten(prediction.falsifying_signal, 8))}`)
   }
   return sections.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n'

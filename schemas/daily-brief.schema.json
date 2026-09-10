@@ -13,6 +13,7 @@
     "winners_losers",
     "long_term_investor",
     "consensus_disagreement",
+    "robotics_cyber",
     "daily_lesson",
     "predictions_to_watch"
   ],
@@ -211,6 +212,28 @@
           "type": "array",
           "items": { "type": "string" },
           "maxItems": 6
+        }
+      }
+    },
+    "robotics_cyber": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["robotics", "cyberwarfare", "cyber_incidents"],
+      "properties": {
+        "robotics": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 4
+        },
+        "cyberwarfare": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 4
+        },
+        "cyber_incidents": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 4
         }
       }
     },
