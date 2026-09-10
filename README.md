@@ -98,14 +98,32 @@ npm run sync
 The sync deliberately runs slowly to reduce YouTube rate limiting:
 
 - 5 seconds before each subtitle download
-- 12 seconds between videos
-- 20 seconds between sources
-- Automatic 15, 30, and 60-second retries after HTTP 429 errors
+- ~15 seconds between videos (jittered +/-25%)
+- ~30 seconds between sources (jittered +/-25%)
+- Automatic 15, 30, 60, 120, and 300-second retries after HTTP 429 errors, so a
+  throttle episode recovers instead of skipping the video
 
 You can make it even more conservative:
 
 ```powershell
 npm run sync -- --video-delay 30 --source-delay 45
+```
+
+If YouTube still returns HTTP 429 (or "the page needs to be reloaded" errors),
+first update the caption extractor — most extraction failures are a stale
+`yt-dlp`:
+
+```powershell
+npm run update:yt-dlp
+```
+
+As a last resort you can sign `yt-dlp` in to YouTube, which grants much higher
+caption rate limits. Set one of these in `.env` (read at runtime, never
+committed):
+
+```
+YTDLP_COOKIES_FROM_BROWSER=chrome
+# or: YTDLP_COOKIES_FILE=/absolute/path/to/cookies.txt
 ```
 
 The selected YouTube, podcast, and Reddit sources are stored in `sources.json`.
@@ -116,11 +134,15 @@ YouTube and podcasts:
 - Reuters
 - Financial Times
 - The Economist
+- The Robot Report
+- IEEE Spectrum
 - Brussels Playbook Podcast
 - FT News Briefing
 - The Intelligence from The Economist
 - The President's Daily Brief
 - The Vergecast
+- Risky Business
+- SANS ISC StormCast
 
 Reddit:
 
@@ -133,7 +155,7 @@ Reddit:
 
 Broad channels can include simple `skipTitleKeywords` rules. These skip obvious non-market clips before downloading captions, while the later AI evidence filter still decides the subtler cases.
 
-The command checks the 10 newest uploads from each YouTube source. On later runs it remembers video IDs and downloads only new captioned videos. Podcast sync checks each RSS feed for episodes whose publish date is the run date.
+The command checks the 6 newest uploads from each YouTube source. On later runs it remembers video IDs and downloads only new captioned videos. Podcast sync checks each RSS feed for episodes whose publish date is the run date.
 
 Daily dates use the timezone set by the `REPORT_TIME_ZONE` environment variable (any IANA zone name; defaults to `UTC`). Reddit collection starts at 00:00 in that timezone and ends when the command runs. Reddit posts are deduplicated by post ID, normalized outbound URL, and similar headline. Reddit comments are not requested or stored.
 
