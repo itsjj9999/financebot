@@ -9,6 +9,21 @@ const require = createRequire(import.meta.url)
 const youtubeDl = require('youtube-dl-exec')
 const binary = youtubeDl.constants.YOUTUBE_DL_PATH
 
+// Optional authenticated access. YouTube grants far higher caption/subtitle
+// rate limits to signed-in requests, so setting one of these env vars is the
+// most effective way to avoid HTTP 429 throttling. Nothing is stored in the
+// repo; cookies are read from the local browser or a local file at runtime.
+//   YTDLP_COOKIES_FROM_BROWSER=chrome   (or "firefox", "chrome:Default", ...)
+//   YTDLP_COOKIES_FILE=/path/to/cookies.txt
+export function ytdlpAuthFlags () {
+  const flags = []
+  const browser = process.env.YTDLP_COOKIES_FROM_BROWSER?.trim()
+  const file = process.env.YTDLP_COOKIES_FILE?.trim()
+  if (browser) flags.push('--cookies-from-browser', browser)
+  else if (file) flags.push('--cookies', file)
+  return flags
+}
+
 function run (args, { quiet = false } = {}) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(binary, args, {
@@ -38,8 +53,11 @@ function sleep (milliseconds) {
   return new Promise(resolvePromise => setTimeout(resolvePromise, milliseconds))
 }
 
+// YouTube's subtitle throttle can persist for minutes once tripped, so the
+// backoff climbs to 5 minutes before giving up. Waiting through it recovers
+// the video; the old 60s ceiling just skipped it.
 async function runWithBackoff (args, options = {}) {
-  const waits = [15000, 30000, 60000]
+  const waits = [15000, 30000, 60000, 120000, 300000]
   for (let attempt = 0; attempt <= waits.length; attempt += 1) {
     try {
       return await run(args, options)
@@ -218,6 +236,7 @@ ${transcript}
 export async function downloadTranscript ({ url, lang, outFolder, dateFolder = false }) {
   console.log('Inspecting video and available captions...')
   const metadataResult = await runWithBackoff([
+    ...ytdlpAuthFlags(),
     '--dump-single-json',
     '--skip-download',
     '--no-playlist',
@@ -242,6 +261,7 @@ export async function downloadTranscript ({ url, lang, outFolder, dateFolder = f
   try {
     const writeFlag = track.automatic ? '--write-auto-subs' : '--write-subs'
     await runWithBackoff([
+      ...ytdlpAuthFlags(),
       '--skip-download',
       '--no-playlist',
       '--no-warnings',

@@ -13,6 +13,7 @@
     "sync:podcasts": "node ./src/sync_podcasts.js",
     "sync:reddit": "node ./src/sync_reddit.js",
     "sync:bloomberg": "node ./src/sync_channel.js",
+    "update:yt-dlp": "node -e \"const p=require('youtube-dl-exec').constants.YOUTUBE_DL_PATH;require('node:child_process').spawnSync(p,['-U'],{stdio:'inherit'})\"",
     "analyze": "node ./src/analyze.js",
     "raport": "node ./src/report_existing.js",
     "analyze:only": "node ./src/report_existing.js",

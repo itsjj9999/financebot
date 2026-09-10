@@ -110,7 +110,11 @@ Priorities:
 - Put the 3 most useful points first.
 - Use short sentences. One sentence per field when possible.
 - Explain jargon only when unavoidable.
-- Prefer 3 main stories, 6 market moves, 6 winners/losers, 2 game-theory setups, and 5 predictions.
+- Keep it short and punchy. One short sentence per field. Cut adjectives, hedging, and commentary. Facts over framing.
+- Prefer 3 main stories, 5 market moves, 5 winners/losers, 2 game-theory setups, and 4 predictions.
+- Fill robotics_cyber from the evidence cards: concrete facts only about (a) robotics/automation, (b) cyberwarfare and state-backed cyber operations, (c) cyber incidents like breaches, hacks, ransomware, and major outages.
+- robotics_cyber is facts only: what happened, who, and the number if given. No speculation, no market spin, no "why it matters".
+- If a robotics_cyber category has nothing in today's sources, return an empty array for it. Never invent robotics or cyber news to fill a slot.
 - For game theory, name only the important players and answer: "What do they want?" and "What will they probably do?"
 - Separate facts from inferred causes and speculation.
 - "Ignore this" and "do nothing" are valid conclusions.
